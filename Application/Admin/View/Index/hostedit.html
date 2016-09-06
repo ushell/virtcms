@@ -1,0 +1,49 @@
+<include file="header" />
+<include file="nav" />
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-xs-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">编辑物理机</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/admin/index/do_hostedit" method="post">
+                        <div class="box-body">
+                            <input type="hidden" name="id" value="{$vminfo.id}">
+                            <div class="form-group">
+                                <label >名称:</label>
+                                <input type="text" name="name" class="form-control" value="{$vminfo.name}" style="width:250px">
+                            </div>
+                            <div class="form-group">
+                                <label >IP:</label>
+                                <input type="text" name="ip" class="form-control" value="{$vminfo.ip}" style="width:250px">
+                            </div>
+                            <div class="form-group">
+                                <label >承载量(台):</label>
+                                <input type="text" name="max_cnt" class="form-control" value="{$vminfo.max_counts}"style="width:250px">
+                            </div>
+                            <div class="form-group">
+                                <label >上线状态: (1代表上线,0代表下线):</label>
+                                <input type="text" name="status" class="form-control" value="{$vminfo.status}" style="width:250px">
+                            </div>
+                        </div><!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info" style="width:70px">更新</button>
+                        </div>
+                    </form>
+                </div>
+            </div><!--/.col (left) -->
+        </div>   <!-- /.row -->
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+<include file="foot" />
+</body>
+</html>

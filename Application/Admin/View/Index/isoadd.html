@@ -1,0 +1,84 @@
+<include file="header" />
+<include file="nav" />
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-xs-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">上传镜像</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <hr>
+                                <input type="file" name="name" id="fileinfo"  style="width:250px"><br>
+                                <div id="message">等待上传...</div>
+                            </div>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            <button id="upload" class="btn btn-info" style="width:100px">开始上传</button>
+                        </div>
+                </div>
+            </div><!--/.col (left) -->
+        </div>   <!-- /.row -->
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+</div>
+</body>
+<include file="foot" />
+<script>
+    function init() {
+        $('#upload').on('click', function(event) {
+            var file = $("#fileinfo")[0].files[0];
+            var size = file.size;
+            if(file == null) {
+                alert('请选择上传文件！');
+                return;
+            }
+            if(size === 0) {
+                alert('该文件没有内容！');
+                return;
+            }
+            upload(file, 0, 1024*1000, size, file.name);
+        });
+    }
+    init();
+    function upload(file, start, len, size, name) {
+        var end=start+len, process=end/size, form=new FormData();
+        form.append('data', file.slice(start, end));
+        form.append('name', end);
+        form.append('realname', name);
+        form.append('process', process);
+        var timer = setTimeout(function() {
+            $.ajax({
+                url: "/admin/index/do_addiso",
+                type: "POST",
+                data: form,
+                async: true,
+                processData: false,
+                contentType: false,
+                success: function(json){
+                    if(json.status === -1) {
+                        alert(json.msg);
+                        return;
+                    }
+                    if(json.status === 0) {
+                        $('#message').html('进度：100%. '+json.msg+'<br />md5sum: '+json.md5);
+                    } else {
+                        start = end;
+                        var p = (process*100).toFixed(2);
+                        $('#message').html('<div class="progress sm progress-striped active"><div class="progress-bar progress-bar-green" style="width: '+p+'%"></div></div><br>进度：'+p+'%');
+                        upload(file, start, len, size, name);
+                    }
+                }
+            });
+        }, 200);
+    }
+</script>
+</html>

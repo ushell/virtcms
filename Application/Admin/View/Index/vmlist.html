@@ -1,0 +1,209 @@
+<include file="header" />
+<include file="nav" />
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>虚拟机列表</h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Tables</a></li>
+                <li class="active">Data tables</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <form action="/admin/index/vmlist" method="post" id="vmlist">
+                                <h3 class="box-title">虚拟机类型</h3>
+                                <select name="type" id="vmtype">
+                                    <option value="basic">基础虚拟机</option>
+                                    <option value="increment">增量虚拟机</option>
+                                    <option value="user">用户虚拟机模版</option>
+                                </select>
+                            </form>
+                        </div><!-- /.box-header -->
+                        <div class="box-body table-responsive">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>文件位置</th>
+                                    <th>文件类型</th>
+                                    <th>宿主机IP</th>
+                                    <th>创建时间</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="vmlist" item="v" key="k">
+                                    <tr>
+                                        <td>{$k+1}</td>
+                                        <td id="vmname">{$v.name}</td>
+                                        <td>{$v.img_path}</td>
+                                        <td>{$v.type}</td>
+                                        <td>{$v.ip}</td>
+                                        <td>{$v.createtime}</td>
+                                        <td align="center">
+                                            <if condition="$v.flag neq 1">
+                                                    <a class="badge bg-green"   onclick='start("{$v.name}")'>启动</a>
+                                                    |<a class="badge bg-orange" id="" href="/admin/index/editvm/name/{$v.name}">编辑</a>
+                                                    <!--|<a class="badge bg-blue"   href="/admin/action/dumpxml/name/{$v.name}">下载XML</a>-->
+                                                    |<a class="badge bg-red"    id="destroy" onclick='destroy("{$v.name}")'>删除</a>
+                                                <else />
+                                                    <a class="badge bg-red"     id="poweoff" onclick='poweroff("{$v.name}")'>关机</a>
+                                                    |<a class="badge bg-olive"  id="reboot"  onclick='reboot("{$v.name}")'>重启</a>
+                                                    <if condition="$v.flag eq 3">
+                                                        |<a class="badge bg-purple" id="resume" onclick='resume("{$v.name}")'>恢复</a>
+                                                        <else />
+                                                        |<a class="badge bg-purple" id="suspend" onclick='suspend("{$v.name}")'>暂停</a>
+                                                    </if>
+                                                    |<a class="badge bg-green"  onclick='vnc("{$v.name}")'>VNC视图</a>
+                                            </if>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+</body>
+<include file="foot" />
+<script>
+       $('#vmtype').change(function(){
+          document.getElementById('vmlist').submit();
+       });
+       function start(name){
+           var vmname = name;
+           $.ajax({
+               type : 'post',
+               url  : '/admin/action/start',
+               data : 'name='+name,
+               dataType : 'json',
+               success : function(data){
+                   if(data.status){
+                       alert(data.msg);
+                       window.open(data.url);
+                   } else {
+                       alert(data.msg);
+                   }
+               }
+           });
+       }
+       function destroy(name){
+           var vmname = name;
+           $.ajax({
+               type : 'post',
+               url  : '/admin/action/destroy',
+               data : 'name='+vmname,
+               dataType : 'json',
+               success : function(data){
+                   if(data.status){
+                       alert(data.msg);
+                       window.location.reload();
+                   } else {
+                       alert(data.msg);
+                   }
+               }
+           });
+       }
+      function poweroff(name){
+          var vmname = name;
+          $.ajax({
+              type : 'post',
+              url  : '/admin/action/shutdown',
+              data : 'name='+vmname,
+              dataType : 'json',
+              success : function(data){
+                  if(data.status){
+                      alert(data.msg);
+                      window.location.reload();
+                  } else {
+                      alert(data.msg);
+                  }
+              }
+          });
+      }
+      function suspend(name){
+          var vmname = name;
+          $.ajax({
+              type : 'post',
+              url  : '/admin/action/suspend',
+              data : 'name='+vmname,
+              dataType : 'json',
+              success : function(data){
+                  if(data.status){
+                      alert(data.msg);
+                      window.location.reload();
+                  } else {
+                      alert(data.msg);
+                  }
+              }
+          });
+      }
+       function resume(name){
+           var vmname = name;
+           $.ajax({
+               type : 'post',
+               url  : '/admin/action/resume',
+               data : 'name='+vmname,
+               dataType : 'json',
+               success : function(data){
+                   if(data.status){
+                       alert(data.msg);
+                       window.location.reload();
+                   } else {
+                       alert(data.msg);
+                   }
+               }
+           });
+       }
+       function reboot(name){
+           var vmname = name;
+           $.ajax({
+               type : 'post',
+               url  : '/admin/action/reboot',
+               data : 'name='+vmname,
+               dataType : 'json',
+               success : function(data){
+                   if(data.status){
+                       alert(data.msg);
+                       window.location.reload();
+                   } else {
+                       alert(data.msg);
+                   }
+               }
+           });
+       }
+
+       function vnc(name){
+           var vmname = name;
+           $.ajax({
+               type : 'post',
+               url  : '/admin/action/vnc',
+               data : 'name='+vmname,
+               dataType : 'json',
+               success : function(data){
+                   if(data.status){
+                       alert(data.msg);
+                       window.open(data.url);
+                   } else {
+                       alert(data.msg);
+                   }
+               }
+           });
+       }
+    </script>
+</html>

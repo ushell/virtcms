@@ -1,0 +1,41 @@
+<include file="header" />
+<include file="nav" />
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-xs-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">编辑虚拟机</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/admin/index/do_editvm" method="post">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label >实例名称: </label>
+                                <input type="text" name="name" value="{$vmname}" class="form-control" style="width:250px">
+                            </div>
+                        </div><!-- /.box-body -->
+                        <div class="box-body">
+                            <h3 class="box-title">XML配置:</h3>
+                            <textarea class="form-control" name="vmxml" style="width:1200px;height: 700px">
+                                {$vmxml}
+                            </textarea>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info" style="width: 90px">确认修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div><!--/.col (left) -->
+        </div>   <!-- /.row -->
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+<include file="foot" />
+</body>
+</html>

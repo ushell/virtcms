@@ -1,0 +1,91 @@
+<include file="header" />
+<include file="nav" />
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-xs-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">添加虚拟机</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/admin/index/do_addvm" method="post">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label >名称:</label>
+                                <input type="text" name="name" class="form-control" placeholder="虚拟机名称" style="width:250px">
+                            </div>
+                            <div class="form-group">
+                                <label>类型:</label>
+                                <select name="type" id="vmtype">
+                                        <option value="">---选择虚拟机类型---</option>
+                                        <option value="basic">基础虚拟机</option>
+                                        <option value="win">用户WIN虚拟机</option>
+                                        <option value="linux">用户LINUX虚拟机</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>镜像:</label>
+                                <select name="iso">
+                                    <option value="">---选择虚拟机镜像---</option>
+                                    <foreach name="imginfo" item="v" key="k">
+                                        <option value="{$v.name}">{$v.name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>磁盘大小:</label>
+                                <input type="text" name="disk[size]" class="form-control" placeholder="磁盘大小(单位G) 如:10 " style="width:250px">
+                                <br>
+                                <label>磁盘文件(可选):</label>
+                                <select name="iso">
+                                    <option value="">---选择虚拟机镜像---</option>
+                                    <foreach name="imginfo" item="v" key="k">
+                                        <option value="{$v.name}">{$v.name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>vCPU数量:</label>
+                                <select name="vcpu">
+                                    <option value="1" selected>默认1核</option>
+                                    <option value="2">2核</option>
+                                    <option value="3">3核</option>
+                                    <option value="4">4核</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>内存设置:</label>
+                                <input type="text" name="memory" class="form-control" placeholder="内存大小(默认512M,单位M)" style="width:250px">
+                            </div>
+                            <div class="form-group">
+                                <label>网络设置:&nbsp;</label>
+                                <select name="nic[model]">
+                                    <option value="bridge">默认桥接</option>
+                                    <option value="nat">NAT</option>
+                                </select>
+                                &nbsp;
+                                <select name="nic[inet]">
+                                    <option value="virbr0">默认网卡virtbr0</option>
+                                    <option value="rtl8139">RTL8139</option>
+                                </select>
+                            </div>
+                        </div><!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info" style="width:70px">添加</button>
+                        </div>
+                    </form>
+                </div>
+            </div><!--/.col (left) -->
+        </div>   <!-- /.row -->
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+<include file="foot" />
+</body>
+</html>

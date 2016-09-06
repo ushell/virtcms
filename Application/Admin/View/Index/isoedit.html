@@ -1,0 +1,45 @@
+<include file="header" />
+<include file="nav" />
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-xs-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">编辑镜像</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/admin/index/do_isoedit" method="post">
+                        <div class="box-body">
+                            <input type="hidden" name="id" value="{$isoinfo.id}">
+                            <div class="form-group">
+                                <label >名称:</label>
+                                <input type="text" name="name" class="form-control" value="{$isoinfo.name}" style="width:250px">(镜像名称必须与文件名一致)
+                            </div>
+                            <div class="form-group">
+                                <label>镜像类型:</label>
+                                <input type="text" name="type" class="form-control" value="{$isoinfo.type}" readonly="" style="width:250px">
+                            </div>
+                            <div class="form-group">
+                                <label >存储路径:</label>
+                                <input type="text" name="save_path" class="form-control" value="{$isoinfo.save_path}" readonly="" style="width:250px">
+                            </div>
+                        </div><!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info" style="width:70px">更新</button>
+                        </div>
+                    </form>
+                </div>
+            </div><!--/.col (left) -->
+        </div>   <!-- /.row -->
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+</body>
+<include file="foot" />
+</html>

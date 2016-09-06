@@ -1,0 +1,62 @@
+<include file="header" />
+<include file="nav" />
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1> 镜像列表</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <!--<div class="box-header">-->
+                            <!--<a class="pull-right" href="/admin/index/isoadd"><button class="btn btn-facebook">添加镜像</button> </a>-->
+                        <!--</div>&lt;!&ndash; /.box-header &ndash;&gt;-->
+                        <div class="box-body table-responsive">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>文件大小</th>
+                                    <th>文件类型</th>
+                                    <th>路径</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="imginfo" item="v" key="k">
+                                    <tr>
+                                        <td>{$k+1}</td>
+                                        <td>{$v.name}</td>
+                                        <td>{$v.size |number_format}</td>
+                                        <td>{$v.type}</td>
+                                        <td>{$v.save_path}</td>
+                                        <td><a class="btn btn-success" style="height:30px" href="/admin/index/isoedit/name/{$v.name}">编辑</a>|<a class="btn btn-danger" style="height:30px" href="/admin/index/isodel/name/{$v.name}">删除</a></td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                            </table>
+                            <div class="box-footer clearfix">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#">&laquo;</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">&raquo;</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+            </div>
+
+        </section><!-- /.content -->
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+</body>
+<include file="foot" />
+</html>
